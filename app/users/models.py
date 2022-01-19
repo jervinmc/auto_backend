@@ -44,6 +44,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     occupation=models.CharField(_('occupation'),max_length=255,blank=True)
     password=models.CharField(_('password'),max_length=255,blank=True)
     email=models.CharField(_('email'),max_length=255,blank=True,unique=True)
+    civil_status=models.CharField(_('civil_status'),max_length=255,blank=True)
     is_verified=models.BooleanField(_('is_verified'),default=True)
     account_type=models.CharField(_('account_type'),max_length=255,blank=True)
     image = models.ImageField(

@@ -89,6 +89,23 @@ class OTP(generics.GenericAPIView):
             return Response(status=status.HTTP_404_NOT_FOUND,data=[])
 
 
+class CheckEmail(generics.GenericAPIView):
+    queryset=User.objects.all()
+    serializer_class=UserSerializer
+    permission_classes=[permissions.AllowAny]
+    def post(self,request,format=None):
+        try:
+            item = User.objects.filter(email=request.data.get('email')).count()
+            print(item)
+            if(item==0):
+                return Response(status=status.HTTP_200_OK,data={'status':'valid'})
+            else:
+                return Response(status=status.HTTP_200_OK,data={'status':'invalid'})
+            return Response(status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_404_NOT_FOUND,data=[])
+
 class UserActivation(generics.GenericAPIView):
     queryset=User.objects.all()
     serializer_class=UserSerializer
