@@ -13,6 +13,7 @@ def nameFile(instance, filename):
     return 'uploads/{filename}'.format(filename=filename)
 
 
+
 class Listing(models.Model):
     title=models.CharField(_('title'),max_length=255,blank=True,null=True)
     price=models.CharField(_('price'),max_length=255,blank=True,null=True)
@@ -28,9 +29,12 @@ class Listing(models.Model):
     category=models.CharField(_('category'),max_length=255,blank=True,null=True)
     milleage=models.CharField(_('milleage'),max_length=255,blank=True,null=True) 
     numberOfSeats=models.CharField(_('numberOfSeats'),max_length=255,blank=True,null=True) 
+    current_bid=models.CharField(_('current_bid'),max_length=255,blank=True,null=True) 
     isBid = models.BooleanField(_('isBid'), default=False,blank=True)
     isSell = models.BooleanField(_('isSell'), default=False,blank=True)
     isSwap = models.BooleanField(_('isSwap'), default=False,blank=True)
+    start_bidding=models.CharField(_('start_bidding'),max_length=255,blank=True,null=True)
+    live_bidding=models.CharField(_('live_bidding'),max_length=255,blank=True,null=True)
     transmission=models.CharField(_('transmission'),max_length=255,blank=True,null=True)
     plate_number=models.CharField(_('plate_number'),max_length=255,blank=True,null=True)
     descriptions=models.CharField(_('descriptions'),max_length=255,blank=True,null=True)

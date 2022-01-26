@@ -7,9 +7,15 @@ from rest_framework.permissions import DjangoModelPermissions
 from rest_framework.response import Response
 from rest_framework import permissions
 from rest_framework import status, viewsets
+import pusher
+pusher_client = pusher.Pusher(
+  app_id='1336209',
+  key='33efacb6a0d9c7baad00',
+  secret='85da601a0c9bbc86fefa',
+  cluster='ap1',
+  ssl=True
+)
 class ListingView(viewsets.ModelViewSet):
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['category','price','name','descriptions']
     queryset=Listing.objects.all()
     serializer_class=ListingSerializer
 
@@ -29,6 +35,7 @@ class GetListingByUser(generics.GenericAPIView):
             return Response(status=status.HTTP_404_NOT_FOUND,data=[])
 
 
+
 class ListingGetall(generics.GenericAPIView):
     queryset=Listing.objects.all()
     serializer_class=ListingSerializer
@@ -41,3 +48,12 @@ class ListingGetall(generics.GenericAPIView):
         except Exception as e:
             print(e)
             return Response(status=status.HTTP_404_NOT_FOUND,data=[])
+
+
+
+class Pusher(generics.GenericAPIView):
+    permission_classes=[permissions.AllowAny]
+    def post(self,request):
+        pusher_client.trigger(request.data.get('channel'), 'my-test', {'message': 'hello world'})
+        return Response()
+        

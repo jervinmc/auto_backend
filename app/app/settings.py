@@ -16,6 +16,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import pusher
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -31,6 +32,16 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
+pusher_client = pusher.Pusher(
+  app_id='1336209',
+  key='33efacb6a0d9c7baad00',
+  secret='85da601a0c9bbc86fefa',
+  cluster='ap1',
+  ssl=True
+)
+
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,8 +56,16 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'listing',
+    'swap',
+    'channel',
+    'chat',
+    'sold',
+    'bid',
     'reference',
-    'activity'
+    'transactions',
+    'activity',
+    'comments',
+    'reports'
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True

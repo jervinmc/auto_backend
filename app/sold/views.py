@@ -1,27 +1,27 @@
 from django.shortcuts import render
 from rest_framework import viewsets,generics
-from .models import Reference
-from .serializers import ReferenceSerializer
+from .models import Sold
+from .serializers import SoldSerializer
 from rest_framework import filters
 from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework import status, viewsets
-class ReferenceView(viewsets.ModelViewSet):
+class SoldView(viewsets.ModelViewSet):
     filter_backends = [filters.SearchFilter]
     search_fields = ['category','price','name','descriptions']
-    queryset=Reference.objects.all()
-    serializer_class=ReferenceSerializer
+    queryset=Sold.objects.all()
+    serializer_class=SoldSerializer
 
-class ReferenceGetall(generics.GenericAPIView):
-    queryset=Reference.objects.all()
-    serializer_class=ReferenceSerializer
+class SoldGetall(generics.GenericAPIView):
+    queryset=Sold.objects.all()
+    serializer_class=SoldSerializer
     permission_classes=[permissions.AllowAny]
     def get(self,request,format=None,email=None):
         try:
-            items = Reference.objects.all()
-            items = ReferenceSerializer(items,many=True)
+            items = Sold.objects.all()
+            items = SoldSerializer(items,many=True)
             return Response(status=status.HTTP_200_OK,data=items.data)
         except Exception as e:
             print(e)
             return Response(status=status.HTTP_404_NOT_FOUND,data=[])
-
+    
