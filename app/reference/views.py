@@ -24,4 +24,3 @@ class ReferenceGetall(generics.GenericAPIView):
         except Exception as e:
             print(e)
             return Response(status=status.HTTP_404_NOT_FOUND,data=[])
-

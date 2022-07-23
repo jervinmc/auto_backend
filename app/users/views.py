@@ -10,6 +10,7 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.db.models import F
 from rest_framework import generics
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -126,6 +127,29 @@ class UserActivation(generics.GenericAPIView):
             print(e)
             return Response(status=status.HTTP_404_NOT_FOUND,data=[])
         
+
+class Rate(generics.GenericAPIView):
+    queryset=User.objects.all()
+    serializer_class=UserSerializer
+    permission_classes=[permissions.AllowAny]
+    def post(self,request,format=None):
+        try:
+            res = request.data
+            if(res.get('rate')==5):
+                User.objects.filter(id=res.get('seller_id')).update(star_5=F('star_5')+1)
+            if(res.get('rate')==4):
+                User.objects.filter(id=res.get('seller_id')).update(star_4=F('star_4')+1)
+            if(res.get('rate')==3):
+                User.objects.filter(id=res.get('seller_id')).update(star_3=F('star_3')+1)
+            if(res.get('rate')==2):
+                User.objects.filter(id=res.get('seller_id')).update(star_2=F('star_2')+1)
+            if(res.get('rate')==1):
+                User.objects.filter(id=res.get('seller_id')).update(star_1=F('star_1')+1)
+            return Response(status=status.HTTP_200_OK,data=[])
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_404_NOT_FOUND,data=[])
+
 
 class UserVerification(generics.GenericAPIView):
     queryset=User.objects.all()

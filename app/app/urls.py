@@ -4,7 +4,7 @@ from django.urls import path
 from django.urls.conf import include
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from users.views import GetUserView,Signup,UserActivation,OTP,UserVerification,CheckEmail
+from users.views import GetUserView,Signup,UserActivation,OTP,UserVerification,CheckEmail,Rate
 from rest_framework import permissions
 from listing.views import GetListingByUser,ListingGetall,Pusher
 from reference.views import ReferenceGetall
@@ -42,6 +42,8 @@ urlpatterns = [
     path('api/v1/listingGetall/', ListingGetall.as_view(), name='get_user'),
     path('api/v1/referencegetall/', ReferenceGetall.as_view(), name='get_user'),
     path('api/v1/sendMessage/', ChannelSend.as_view(), name='get_user'),
+    path('api/v1/rate/', Rate.as_view(), name='get_user'),
+    
     path('api/v1/commentsgetall/', CommentsGetall.as_view(), name='get_user'),
     path('api/v1/otp/', OTP.as_view(), name='get_user'),
     path('api/v1/chatgetall/', ChatGet.as_view(), name='get_user'),

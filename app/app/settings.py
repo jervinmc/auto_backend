@@ -32,10 +32,11 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
+from decouple import config
 pusher_client = pusher.Pusher(
-  app_id='1336209',
-  key='33efacb6a0d9c7baad00',
-  secret='85da601a0c9bbc86fefa',
+  app_id=config('pusher_id'),
+  key=config('pusher_key'),
+  secret=config('secret_key'),
   cluster='ap1',
   ssl=True
 )
